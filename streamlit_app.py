@@ -60,5 +60,8 @@ else:
         st.markdown(f"*Sentiment:* {sentiment_label}")
     else:
         st.info("Enter your feedback in the text box above to see the sentiment analysis results.")
+def display_chart(country_name, iframe):
+    st.markdown(iframe, unsafe_allow_html=True)
+    st.write(f"Source: [tradingeconomics.com]({get_data_source_link(country_name)})")
 
 
