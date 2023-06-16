@@ -1,12 +1,8 @@
 import streamlit as st
-from textblob import TextBlob
-pip install textblob
+from nltk.sentiment import SentimentIntensityAnalyzer
 
-# Function to analyze sentiment
-def analyze_sentiment(text):
-    blob = TextBlob(text)
-    sentiment = blob.sentiment.polarity
-    return sentiment
+# Create a SentimentIntensityAnalyzer object
+sia = SentimentIntensityAnalyzer()
 
 # Main App
 def main():
@@ -51,35 +47,40 @@ elif selected_tab == "User Feedback":
     st.write("## User Feedback")
     st.write("Have something to say about the Tourist Arrivals Dashboard? Share your feedback with us!")
     st.write("Enter your feedback in the sidebar on the left and click 'Submit'.")
+    feedback = st.text_area("Enter your feedback here")
+        if st.button("Analyze Sentiment"):
+            # Perform sentiment analysis
+            sentiment_scores = sia.polarity_scores(feedback)
+            compound_score = sentiment_scores['compound']
+
+            # Determine sentiment label
+            if compound_score >= 0.05:
+                sentiment_label = "Positive"
+            elif compound_score <= -0.05:
+                sentiment_label = "Negative"
+            else:
+                sentiment_label = "Neutral"
+
+            # Display sentiment analysis results
+            st.write("Sentiment Score: ", compound_score)
+            st.write("Sentiment Label: ", sentiment_label)
+
 
 # Function to display chart
 def display_chart(country_name, iframe):
     st.markdown(iframe, unsafe_allow_html=True)
     st.write(f"Source: [tradingeconomics.com]({get_data_source_link(country_name)})")
-
-
-    # User Feedback and Sentiment Analysis
-    if selected_tab == "User Feedback":
-        st.write("## User Feedback")
-        st.write("Have something to say about the Tourist Arrivals Dashboard? Share your feedback with us!")
-        st.write("Enter your feedback in the sidebar on the left and click 'Submit'.")
-
-        user_feedback = st.text_area("Enter your feedback here:")
-        if st.button("Submit"):
-            sentiment_score = analyze_sentiment(user_feedback)
-            if sentiment_score > 0:
-                st.success("Thank you for your positive feedback!")
-            elif sentiment_score < 0:
-                st.error("We're sorry to hear that you're not satisfied. Please provide more details.")
-            else:
-                st.info("We appreciate your feedback. We'll take it into consideration for improvement.")
-
-    # Function to analyze sentiment
-    def analyze_sentiment(text):
-        blob = TextBlob(text)
-        sentiment = blob.sentiment.polarity
-        return sentiment
-
+def get_data_source_link(country_name):
+    data_sources = {
+        "Indonesia": "https://tradingeconomics.com/indonesia/tourist-arrivals",
+        "Malaysia": "https://tradingeconomics.com/malaysia/tourist-arrivals",
+        "Singapore": "https://tradingeconomics.com/singapore/tourist-arrivals",
+        "Thailand": "https://tradingeconomics.com/thailand/tourist-arrivals"
+    }
+    return data_sources.get(country_name, "")
 
 if __name__ == "__main__":
     main()
+
+
+   
