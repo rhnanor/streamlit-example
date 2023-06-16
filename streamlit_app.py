@@ -62,3 +62,32 @@ def get_data_source_link(country_name):
          "Indonesia": "https://tradingeconomics.com/indonesia/tourist-arrivals",
          "Malaysia": "https://tradingeconomics.com/malaysia/tourist-arrivals",
          "Singapore": "https://tradingeconomics.com/singapore/tourist-arrivals",
+            "Thailand": "https://tradingeconomics.com/thailand/tourist-arrivals"
+        }
+        return data_sources.get(country_name, "")
+
+    # User Feedback and Sentiment Analysis
+    if selected_tab == "User Feedback":
+        st.write("## User Feedback")
+        st.write("Have something to say about the Tourist Arrivals Dashboard? Share your feedback with us!")
+        st.write("Enter your feedback in the sidebar on the left and click 'Submit'.")
+
+        user_feedback = st.text_area("Enter your feedback here:")
+        if st.button("Submit"):
+            sentiment_score = analyze_sentiment(user_feedback)
+            if sentiment_score > 0:
+                st.success("Thank you for your positive feedback!")
+            elif sentiment_score < 0:
+                st.error("We're sorry to hear that you're not satisfied. Please provide more details.")
+            else:
+                st.info("We appreciate your feedback. We'll take it into consideration for improvement.")
+
+    # Function to analyze sentiment
+    def analyze_sentiment(text):
+        blob = TextBlob(text)
+        sentiment = blob.sentiment.polarity
+        return sentiment
+
+
+if __name__ == "__main__":
+    main()
