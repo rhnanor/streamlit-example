@@ -1,38 +1,35 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
 import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
 
-"""
-# Welcome to Streamlit!
+# Load the data
+data = pd.read_csv("travel_data.csv")  # Replace "travel_data.csv" with your actual data file
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+# Create a sidebar for user input
+st.sidebar.title("Travel Pattern Explorer")
+selected_country = st.sidebar.selectbox("Select a Country", data["Country"].unique())
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+# Filter the data based on the selected country
+country_data = data[data["Country"] == selected_country]
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+# Display basic information about the country
+st.title(f"Travel Pattern in {selected_country}")
+total_visits = country_data["Visits"].sum()
+st.write(f"Total Visits: {total_visits}")
 
+# Visualize the travel pattern using a line plot
+plt.figure(figsize=(10, 6))
+plt.plot(country_data["Year"], country_data["Visits"])
+plt.xlabel("Year")
+plt.ylabel("Visits")
+plt.title("Travel Pattern Over Time")
+st.pyplot()
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+# Display a table with detailed data
+st.subheader("Detailed Data")
+st.dataframe(country_data)
 
-    Point = namedtuple('Point', 'x y')
-    data = []
+# Add more interactive elements and analysis as needed
+# For example, you can allow users to select specific years or regions within a country,
+# provide statistical summaries, or incorporate interactive maps for visualization.
 
-    points_per_turn = total_points / num_turns
-
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
-
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
