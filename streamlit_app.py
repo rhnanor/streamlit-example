@@ -1,35 +1,32 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 
-# Load the data
-data = pd.read_csv("travel_data.csv")  # Replace "travel_data.csv" with your actual data file
+# Function to load travel data from a website link
+def load_data(link):
+    data = pd.read_csv(link)  # Replace with appropriate code to load data from the website link
+    return data
+
+# Define website links for travel data
+website_links = {
+    "Thailand": "https://www.example.com/thailand_data.csv",
+    "Malaysia": "https://www.example.com/malaysia_data.csv",
+    "Indonesia": "https://www.example.com/indonesia_data.csv",
+    "Vietnam": "https://www.example.com/vietnam_data.csv"
+}
 
 # Create a sidebar for user input
 st.sidebar.title("Travel Pattern Explorer")
-selected_country = st.sidebar.selectbox("Select a Country", data["Country"].unique())
+selected_country = st.sidebar.selectbox("Select a Country", list(website_links.keys()))
 
-# Filter the data based on the selected country
-country_data = data[data["Country"] == selected_country]
+# Load data based on the selected country
+data_link = website_links[selected_country]
+data = load_data(data_link)
 
 # Display basic information about the country
 st.title(f"Travel Pattern in {selected_country}")
-total_visits = country_data["Visits"].sum()
+total_visits = data["Visits"].sum()
 st.write(f"Total Visits: {total_visits}")
 
-# Visualize the travel pattern using a line plot
-plt.figure(figsize=(10, 6))
-plt.plot(country_data["Year"], country_data["Visits"])
-plt.xlabel("Year")
-plt.ylabel("Visits")
-plt.title("Travel Pattern Over Time")
-st.pyplot()
-
-# Display a table with detailed data
-st.subheader("Detailed Data")
-st.dataframe(country_data)
-
-# Add more interactive elements and analysis as needed
-# For example, you can allow users to select specific years or regions within a country,
-# provide statistical summaries, or incorporate interactive maps for visualization.
-
+# Display the data table
+st.subheader("Data Table")
+st.dataframe(data)
