@@ -1,14 +1,23 @@
 import streamlit as st
+from textblob import TextBlob
 
-def display_chart(country_name, iframe_code):
-    st.title(f"Tourist Arrivals in {country_name}")
-    st.write(f"Welcome to the Tourist Arrivals Dashboard for {country_name}. This dashboard provides an interactive visualization of the tourist arrivals data for {country_name}. Explore the chart below to understand the trends and patterns in tourist arrivals over time. The data is sourced from tradingeconomics.com.")
-    st.write(iframe_code, unsafe_allow_html=True)
-    st.markdown(f"Source: [tradingeconomics.com](https://tradingeconomics.com/{country_name.lower().replace(' ', '-')}/tourist-arrivals)")
+# Function to analyze sentiment
+def analyze_sentiment(text):
+    blob = TextBlob(text)
+    sentiment = blob.sentiment.polarity
+    return sentiment
 
-# Displaying chart for each country in separate tabs
-st.title("Tourist Arrivals Dashboard")
-st.write("Explore the tourist arrivals data for different countries.")
+# Main App
+def main():
+    # Page configuration
+    st.set_page_config(page_title="Tourist Arrivals Dashboard", page_icon=":bar_chart:")
+
+    # Displaying chart for each country in separate tabs
+    st.title("Tourist Arrivals Dashboard")
+    st.write("Explore the tourist arrivals data for different countries.")
+
+    tabs = ["Indonesia", "Malaysia", "Singapore", "Thailand", "User Feedback"]
+    selected_tab = st.selectbox("Select a tab", tabs)
 
 tabs = ["Indonesia", "Malaysia", "Singapore", "Thailand"]
 selected_tab = st.selectbox("Select a country", tabs)
@@ -42,14 +51,14 @@ elif selected_tab == "User Feedback":
     st.write("Have something to say about the Tourist Arrivals Dashboard? Share your feedback with us!")
     st.write("Enter your feedback in the sidebar on the left and click 'Submit'.")
 
- # Sidebar
-    st.sidebar.title("User Feedback")
-    user_feedback = st.sidebar.text_area("Enter your feedback here:")
-    if st.sidebar.button("Submit"):
-        sentiment_score = analyze_sentiment(user_feedback)
-        if sentiment_score > 0:
-            st.sidebar.success("Thank you for your positive feedback!")
-        elif sentiment_score < 0:
-            st.sidebar.error("We're sorry to hear that you're not satisfied. Please provide more details.")
-        else:
-            st.sidebar.info("We appreciate your feedback. We'll take it into consideration for improvement.")
+# Function to display chart
+def display_chart(country_name, iframe):
+    st.markdown(iframe, unsafe_allow_html=True)
+    st.write(f"Source: [tradingeconomics.com]({get_data_source_link(country_name)})")
+
+# Function to get data source link
+def get_data_source_link(country_name):
+    data_sources = {
+         "Indonesia": "https://tradingeconomics.com/indonesia/tourist-arrivals",
+         "Malaysia": "https://tradingeconomics.com/malaysia/tourist-arrivals",
+         "Singapore": "https://tradingeconomics.com
