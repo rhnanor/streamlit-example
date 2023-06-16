@@ -10,7 +10,7 @@ def display_chart(country_name, iframe_code):
     st.markdown(f"Source: [tradingeconomics.com](https://tradingeconomics.com/{country_name.lower().replace(' ', '-')}/tourist-arrivals)")
 
 # Displaying chart for each country in separate tabs
-with st.beta_container():
+with st.beta.container():
     st.title("Tourist Arrivals Dashboard")
     st.write("Explore the tourist arrivals data for different countries.")
 
