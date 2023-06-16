@@ -56,15 +56,6 @@ def display_chart(country_name, iframe):
     st.markdown(iframe, unsafe_allow_html=True)
     st.write(f"Source: [tradingeconomics.com]({get_data_source_link(country_name)})")
 
-# Function to get data source link
-def get_data_source_link(country_name):
-    data_sources = {
-         "Indonesia": "https://tradingeconomics.com/indonesia/tourist-arrivals",
-         "Malaysia": "https://tradingeconomics.com/malaysia/tourist-arrivals",
-         "Singapore": "https://tradingeconomics.com/singapore/tourist-arrivals",
-            "Thailand": "https://tradingeconomics.com/thailand/tourist-arrivals"
-        }
-        return data_sources.get(country_name, "")
 
     # User Feedback and Sentiment Analysis
     if selected_tab == "User Feedback":
