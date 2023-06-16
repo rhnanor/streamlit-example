@@ -1,11 +1,6 @@
 import streamlit as st
 import pandas as pd
 
-# Function to load travel data from a website link
-def load_data(link):
-    data = pd.read_csv(link)  # Replace with appropriate code to load data from the website link
-    return data
-
 # Define website links for travel data
 website_links = {
     "Thailand": "https://public.tableau.com/app/profile/tan.zhi.xuan/viz/TouristArrivalsForecatingDashboardBasedonCovid-19/Main",
