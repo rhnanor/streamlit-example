@@ -13,15 +13,6 @@ website_links = {
 st.sidebar.title("Travel Pattern Explorer")
 selected_country = st.sidebar.selectbox("Select a Country", list(website_links.keys()))
 
-# Load data based on the selected country
-data_link = website_links[selected_country]
-data = load_data(data_link)
-
-# Display basic information about the country
+# Display the selected country and provide a clickable link
 st.title(f"Travel Pattern in {selected_country}")
-total_visits = data["Visits"].sum()
-st.write(f"Total Visits: {total_visits}")
-
-# Display the data table
-st.subheader("Data Table")
-st.dataframe(data)
+st.write(f"Click [here]({website_links[selected_country]}) to access the travel information for {selected_country}.")
