@@ -37,3 +37,19 @@ elif selected_tab == "Thailand":
     <iframe src='https://tradingeconomics.com/embed/?s=thailandtouarr&v=202305260335v20230410&h=300&w=600&ref=/thailand/tourist-arrivals' height='300' width='600' frameborder='0' scrolling='no'></iframe>
     """
     display_chart("Thailand", thailand_iframe)
+elif selected_tab == "User Feedback":
+    st.write("## User Feedback")
+    st.write("Have something to say about the Tourist Arrivals Dashboard? Share your feedback with us!")
+    st.write("Enter your feedback in the sidebar on the left and click 'Submit'.")
+
+ # Sidebar
+    st.sidebar.title("User Feedback")
+    user_feedback = st.sidebar.text_area("Enter your feedback here:")
+    if st.sidebar.button("Submit"):
+        sentiment_score = analyze_sentiment(user_feedback)
+        if sentiment_score > 0:
+            st.sidebar.success("Thank you for your positive feedback!")
+        elif sentiment_score < 0:
+            st.sidebar.error("We're sorry to hear that you're not satisfied. Please provide more details.")
+        else:
+            st.sidebar.info("We appreciate your feedback. We'll take it into consideration for improvement.")
