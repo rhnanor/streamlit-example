@@ -1,4 +1,6 @@
 import streamlit as st
+from textblob import TextBlob
+
 
 # Main App
 def main():
@@ -60,21 +62,3 @@ else:
         st.info("Enter your feedback in the text box above to see the sentiment analysis results.")
 
 
-# Function to display chart
-def display_chart(country_name, iframe):
-    st.markdown(iframe, unsafe_allow_html=True)
-    st.write(f"Source: [tradingeconomics.com]({get_data_source_link(country_name)})")
-def get_data_source_link(country_name):
-    data_sources = {
-        "Indonesia": "https://tradingeconomics.com/indonesia/tourist-arrivals",
-        "Malaysia": "https://tradingeconomics.com/malaysia/tourist-arrivals",
-        "Singapore": "https://tradingeconomics.com/singapore/tourist-arrivals",
-        "Thailand": "https://tradingeconomics.com/thailand/tourist-arrivals"
-    }
-    return data_sources.get(country_name, "")
-
-if __name__ == "__main__":
-    main()
-
-
-   
