@@ -1,6 +1,8 @@
 import streamlit as st
 
 st.title("Tourist Arrivals in Indonesia")
+st.write("Welcome to the Tourist Arrivals Dashboard for Indonesia. This dashboard provides an interactive visualization of the tourist arrivals data for Indonesia. Explore the chart below to understand the trends and patterns in tourist arrivals over time. The data is sourced from tradingeconomics.com.")
+
 
 # HTML code to embed the iframe
 iframe_code = """
