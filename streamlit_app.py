@@ -1,5 +1,6 @@
 import streamlit as st
 from textblob import TextBlob
+pip install textblob
 
 # Function to analyze sentiment
 def analyze_sentiment(text):
