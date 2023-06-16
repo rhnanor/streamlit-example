@@ -8,7 +8,7 @@ def load_data(link):
 
 # Define website links for travel data
 website_links = {
-    "Thailand": "https://www.example.com/thailand_data.csv",
+    "Thailand": "https://link.springer.com/article/10.1007/s12553-022-00701-7",
     "Malaysia": "https://www.example.com/malaysia_data.csv",
     "Indonesia": "https://www.example.com/indonesia_data.csv",
     "Vietnam": "https://www.example.com/vietnam_data.csv"
