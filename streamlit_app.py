@@ -1,4 +1,27 @@
 import streamlit as st
+import nltk
+from nltk.sentiment import SentimentIntensityAnalyzer
+
+# Function to analyze sentiment of user feedback
+def analyze_sentiment(feedback):
+    sid = SentimentIntensityAnalyzer()
+    sentiment_scores = sid.polarity_scores(feedback)
+    compound_score = sentiment_scores['compound']
+    
+    if compound_score >= 0.05:
+        return "Positive"
+    elif compound_score <= -0.05:
+        return "Negative"
+    else:
+        return "Neutral"
+
+# Function to display the sentiment analysis results
+def display_sentiment_analysis(feedback):
+    sentiment = analyze_sentiment(feedback)
+    
+    st.subheader("User Feedback Sentiment Analysis")
+    st.write(f"Feedback: {feedback}")
+    st.write(f"Sentiment: {sentiment}")
 
 # Function to display the chart and description
 def display_chart(country_name, iframe_code):
@@ -30,4 +53,5 @@ thailand_iframe = """
 <iframe src='https://tradingeconomics.com/embed/?s=thailandtouarr&v=202305260335v20230410&h=300&w=600&ref=/thailand/tourist-arrivals' height='300' width='600' frameborder='0' scrolling='no'></iframe>
 """
 display_chart("Thailand", thailand_iframe)
+
 
