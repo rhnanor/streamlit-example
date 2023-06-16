@@ -2,27 +2,6 @@ import streamlit as st
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 
-# Function to analyze sentiment of user feedback
-def analyze_sentiment(feedback):
-    sid = SentimentIntensityAnalyzer()
-    sentiment_scores = sid.polarity_scores(feedback)
-    compound_score = sentiment_scores['compound']
-    
-    if compound_score >= 0.05:
-        return "Positive"
-    elif compound_score <= -0.05:
-        return "Negative"
-    else:
-        return "Neutral"
-
-# Function to display the sentiment analysis results
-def display_sentiment_analysis(feedback):
-    sentiment = analyze_sentiment(feedback)
-    
-    st.subheader("User Feedback Sentiment Analysis")
-    st.write(f"Feedback: {feedback}")
-    st.write(f"Sentiment: {sentiment}")
-
 # Function to display the chart and description
 def display_chart(country_name, iframe_code):
     st.title(f"Tourist Arrivals in {country_name}")
@@ -54,4 +33,24 @@ thailand_iframe = """
 """
 display_chart("Thailand", thailand_iframe)
 
+# Function to analyze sentiment of user feedback
+def analyze_sentiment(feedback):
+    sid = SentimentIntensityAnalyzer()
+    sentiment_scores = sid.polarity_scores(feedback)
+    compound_score = sentiment_scores['compound']
+    
+    if compound_score >= 0.05:
+        return "Positive"
+    elif compound_score <= -0.05:
+        return "Negative"
+    else:
+        return "Neutral"
+
+# Function to display the sentiment analysis results
+def display_sentiment_analysis(feedback):
+    sentiment = analyze_sentiment(feedback)
+    
+    st.subheader("User Feedback Sentiment Analysis")
+    st.write(f"Feedback: {feedback}")
+    st.write(f"Sentiment: {sentiment}")
 
