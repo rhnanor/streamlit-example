@@ -7,6 +7,12 @@ def display_chart(country_name, iframe_code):
     st.write(iframe_code, unsafe_allow_html=True)
     st.markdown(f"Source: [tradingeconomics.com](https://tradingeconomics.com/{country_name.lower().replace(' ', '-')}/tourist-arrivals)")
 
+# Displaying chart for Indonesia
+indonesia_iframe = """
+<iframe src='https://d3fy651gv2fhd3.cloudfront.net/embed/?s=indonesiatouarr&v=202306050459V20230410&h=300&w=600' height='300' width='600' frameborder='0' scrolling='no'></iframe>
+"""
+display_chart("Indonesia", indonesia_iframe)
+
 # Displaying chart for Malaysia
 malaysia_iframe = """
 <iframe src='https://d3fy651gv2fhd3.cloudfront.net/embed/?s=malaysiatouarr&v=202304061134V20230410&h=300&w=600' height='300' width='600' frameborder='0' scrolling='no'></iframe>
