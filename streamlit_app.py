@@ -61,4 +61,4 @@ def get_data_source_link(country_name):
     data_sources = {
          "Indonesia": "https://tradingeconomics.com/indonesia/tourist-arrivals",
          "Malaysia": "https://tradingeconomics.com/malaysia/tourist-arrivals",
-         "Singapore": "https://tradingeconomics.com
+         "Singapore": "https://tradingeconomics.com/singapore/tourist-arrivals"
