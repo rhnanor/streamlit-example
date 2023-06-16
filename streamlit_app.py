@@ -1,8 +1,4 @@
 import streamlit as st
-from nltk.sentiment import SentimentIntensityAnalyzer
-
-# Create a SentimentIntensityAnalyzer object
-sia = SentimentIntensityAnalyzer()
 
 # Main App
 def main():
@@ -47,23 +43,21 @@ elif selected_tab == "User Feedback":
     st.write("## User Feedback")
     st.write("Have something to say about the Tourist Arrivals Dashboard? Share your feedback with us!")
     st.write("Enter your feedback in the sidebar on the left and click 'Submit'.")
-    feedback = st.text_area("Enter your feedback here")
-        if st.button("Analyze Sentiment"):
-            # Perform sentiment analysis
-            sentiment_scores = sia.polarity_scores(feedback)
-            compound_score = sentiment_scores['compound']
+    # Section: User Feedback and Sentiment Analysis
+else:
+    st.header("User Feedback and Sentiment Analysis")
+    feedback = st.text_input("Enter your feedback on the helpfulness of this website:")
 
-            # Determine sentiment label
-            if compound_score >= 0.05:
-                sentiment_label = "Positive"
-            elif compound_score <= -0.05:
-                sentiment_label = "Negative"
-            else:
-                sentiment_label = "Neutral"
+    if feedback:
+        blob = TextBlob(feedback)
+        sentiment_score = blob.sentiment.polarity
+        sentiment_label = "Positive" if sentiment_score > 0 else "Negative" if sentiment_score < 0 else "Neutral"
 
-            # Display sentiment analysis results
-            st.write("Sentiment Score: ", compound_score)
-            st.write("Sentiment Label: ", sentiment_label)
+        st.markdown(f"*Feedback:* {feedback}")
+        st.markdown(f"*Sentiment Score:* {sentiment_score:.2f}")
+        st.markdown(f"*Sentiment:* {sentiment_label}")
+    else:
+        st.info("Enter your feedback in the text box above to see the sentiment analysis results.")
 
 
 # Function to display chart
