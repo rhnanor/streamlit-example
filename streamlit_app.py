@@ -38,11 +38,16 @@ elif selected_tab == "Thailand":
     <iframe src='https://tradingeconomics.com/embed/?s=thailandtouarr&v=202305260335v20230410&h=300&w=600&ref=/thailand/tourist-arrivals' height='300' width='600' frameborder='0' scrolling='no'></iframe>
     """
     display_chart("Thailand", thailand_iframe)
+
 elif selected_tab == "User Feedback":
+        display_user_feedback()
+# Function to display user feedback
+def display_user_feedback():
     st.write("## User Feedback")
     st.write("Have something to say about the Tourist Arrivals Dashboard? Share your feedback with us!")
-    st.write("Enter your feedback in the sidebar on the left and click 'Submit'.")
-   feedback = st.text_input("Enter your feedback on the helpfulness of this website:")
+    st.write("Enter your feedback in the text box below and click 'Submit'.")
+
+    feedback = st.text_input("Enter your feedback on the helpfulness of this website:")
     if st.button("Submit"):
         if feedback:
             blob = TextBlob(feedback)
@@ -55,6 +60,6 @@ elif selected_tab == "User Feedback":
         else:
             st.warning("Please enter your feedback before submitting.")
 
+
 if __name__ == "__main__":
     main()
-
