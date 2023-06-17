@@ -38,24 +38,20 @@ elif selected_tab == "Thailand":
     <iframe src='https://tradingeconomics.com/embed/?s=thailandtouarr&v=202305260335v20230410&h=300&w=600&ref=/thailand/tourist-arrivals' height='300' width='600' frameborder='0' scrolling='no'></iframe>
     """
     display_chart("Thailand", thailand_iframe)
-elif selected_tab == "User Feedback":
+def display_user_feedback():
     st.write("## User Feedback")
     st.write("Have something to say about the Tourist Arrivals Dashboard? Share your feedback with us!")
-    st.write("Enter your feedback in the sidebar on the left and click 'Submit'.")
-        
-# Section: User Feedback and Sentiment Analysis
-    st.header("User Feedback and Sentiment Analysis")
+    st.write("Enter your feedback in the text box below and click 'Submit'.")
+
     feedback = st.text_input("Enter your feedback on the helpfulness of this website:")
+    if st.button("Submit"):
+        if feedback:
+            blob = TextBlob(feedback)
+            sentiment_score = blob.sentiment.polarity
+            sentiment_label = "Positive" if sentiment_score > 0 else "Negative" if sentiment_score < 0 else "Neutral"
 
-    if feedback:
-        blob = TextBlob(feedback)
-        sentiment_score = blob.sentiment.polarity
-        sentiment_label = "Positive" if sentiment_score > 0 else "Negative" if sentiment_score < 0 else "Neutral"
-
-        st.markdown(f"*Feedback:* {feedback}")
-        st.markdown(f"*Sentiment Score:* {sentiment_score:.2f}")
-        st.markdown(f"*Sentiment:* {sentiment_label}")
-    else:
-        st.info("Enter your feedback in the text box above to see the sentiment analysis results.")
-
-
+            st.markdown(f"*Feedback:* {feedback}")
+            st.markdown(f"*Sentiment Score:* {sentiment_score:.2f}")
+            st.markdown(f"*Sentiment:* {sentiment_label}")
+        else:
+            st.warning("Please enter your feedback before submitting.")
