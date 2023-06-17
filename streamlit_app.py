@@ -1,18 +1,15 @@
 import streamlit as st
-from textblob import TextBlob
+import streamlit as st
 
+def display_chart(country_name, iframe_code):
+    st.title(f"Tourist Arrivals in {country_name}")
+    st.write(f"Welcome to the Tourist Arrivals Dashboard for {country_name}. This dashboard provides an interactive visualization of the tourist arrivals data for {country_name}. Explore the chart below to understand the trends and patterns in tourist arrivals over time. The data is sourced from tradingeconomics.com.")
+    st.write(iframe_code, unsafe_allow_html=True)
+    st.markdown(f"Source: [tradingeconomics.com](https://tradingeconomics.com/{country_name.lower().replace(' ', '-')}/tourist-arrivals)")
 
-# Main App
-def main():
-    # Page configuration
-    st.set_page_config(page_title="Tourist Arrivals Dashboard", page_icon=":bar_chart:")
-
-    # Displaying chart for each country in separate tabs
-    st.title("Tourist Arrivals Dashboard")
-    st.write("Explore the tourist arrivals data for different countries.")
-
-    tabs = ["Indonesia", "Malaysia", "Singapore", "Thailand", "User Feedback"]
-    selected_tab = st.selectbox("Select a tab", tabs)
+# Displaying chart for each country in separate tabs
+st.title("Tourist Arrivals Dashboard")
+st.write("Explore the tourist arrivals data for different countries.")
 
 tabs = ["Indonesia", "Malaysia", "Singapore", "Thailand"]
 selected_tab = st.selectbox("Select a country", tabs)
@@ -41,27 +38,5 @@ elif selected_tab == "Thailand":
     <iframe src='https://tradingeconomics.com/embed/?s=thailandtouarr&v=202305260335v20230410&h=300&w=600&ref=/thailand/tourist-arrivals' height='300' width='600' frameborder='0' scrolling='no'></iframe>
     """
     display_chart("Thailand", thailand_iframe)
-elif selected_tab == "User Feedback":
-    st.write("## User Feedback")
-    st.write("Have something to say about the Tourist Arrivals Dashboard? Share your feedback with us!")
-    st.write("Enter your feedback in the sidebar on the left and click 'Submit'.")
-    # Section: User Feedback and Sentiment Analysis
-else:
-    st.header("User Feedback and Sentiment Analysis")
-    feedback = st.text_input("Enter your feedback on the helpfulness of this website:")
-
-    if feedback:
-        blob = TextBlob(feedback)
-        sentiment_score = blob.sentiment.polarity
-        sentiment_label = "Positive" if sentiment_score > 0 else "Negative" if sentiment_score < 0 else "Neutral"
-
-        st.markdown(f"*Feedback:* {feedback}")
-        st.markdown(f"*Sentiment Score:* {sentiment_score:.2f}")
-        st.markdown(f"*Sentiment:* {sentiment_label}")
-    else:
-        st.info("Enter your feedback in the text box above to see the sentiment analysis results.")
-def display_chart(country_name, iframe):
-    st.markdown(iframe, unsafe_allow_html=True)
-    st.write(f"Source: [tradingeconomics.com]({get_data_source_link(country_name)})")
 
 
