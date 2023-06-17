@@ -14,22 +14,22 @@ def main():
     selected_tab = st.selectbox("Select a tab", tabs)
 
     if selected_tab == "Indonesia":
-        display_chart("Indonesia", "indonesia_iframe")
+        display_chart("Indonesia")
     elif selected_tab == "Malaysia":
-        display_chart("Malaysia", "malaysia_iframe")
+        display_chart("Malaysia")
     elif selected_tab == "Singapore":
-        display_chart("Singapore", "singapore_iframe")
+        display_chart("Singapore")
     elif selected_tab == "Thailand":
-        display_chart("Thailand", "thailand_iframe")
+        display_chart("Thailand")
     elif selected_tab == "User Feedback":
         display_user_feedback()
 
 
 # Function to display chart
-def display_chart(country_name, iframe_variable_name):
+def display_chart(country_name):
     st.write(f"## {country_name}")
-    iframe_code = st.secrets[iframe_variable_name]
-    st.markdown(iframe_code, unsafe_allow_html=True)
+    placeholder_image = f"{country_name.lower()}_chart.png"
+    st.image(placeholder_image, use_column_width=True)
     st.markdown(f"Source: [tradingeconomics.com](https://tradingeconomics.com/{country_name.lower().replace(' ', '-')}/tourist-arrivals)")
 
 
@@ -51,3 +51,7 @@ def display_user_feedback():
             st.markdown(f"*Sentiment:* {sentiment_label}")
         else:
             st.warning("Please enter your feedback before submitting.")
+
+
+if __name__ == "__main__":
+    main()
