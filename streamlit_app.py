@@ -43,9 +43,9 @@ elif selected_tab == "User Feedback":
     st.write("Have something to say about the Tourist Arrivals Dashboard? Share your feedback with us!")
     st.write("Enter your feedback in the sidebar on the left and click 'Submit'.")
         
-    # Section: User Feedback and Sentiment Analysis
-    st.header("User Feedback and Sentiment Analysis")
-    feedback = st.text_input("Enter your feedback on the helpfulness of this website:")
+# Section: User Feedback and Sentiment Analysis
+st.header("User Feedback and Sentiment Analysis")
+feedback = st.text_input("Enter your feedback on the helpfulness of this website:")
 
     if feedback:
         blob = TextBlob(feedback)
