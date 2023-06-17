@@ -62,5 +62,3 @@ elif selected_tab == "User Feedback":
         display_user_feedback()
     
 
-if __name__ == "__main__":
-    main()
