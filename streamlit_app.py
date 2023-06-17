@@ -32,6 +32,22 @@ def display_chart(country_name):
     st.image(placeholder_image, use_column_width=True)
     st.markdown(f"Source: [tradingeconomics.com](https://tradingeconomics.com/{country_name.lower().replace(' ', '-')}/tourist-arrivals)")
 
+# Function to get the chart image URL for each country
+def get_chart_image_url(country_name):
+    if country_name == "Indonesia":
+        return "https://d3fy651gv2fhd3.cloudfront.net/embed/?s=indonesiatouarr&v=202306050459V20230410&h=300&w=600"
+    elif country_name == "Malaysia":
+        return "https://d3fy651gv2fhd3.cloudfront.net/embed/?s=malaysiatouarr&v=202304061134V20230410&h=300&w=600"
+    elif country_name == "Singapore":
+        return "https://tradingeconomics.com/embed/?s=singaporetouarr&v=202306090122v20230410&h=300&w=600&ref=/singapore/tourist-arrivals"
+    elif country_name == "Thailand":
+        return "https://tradingeconomics.com/embed/?s=thailandtouarr&v=202305260335v20230410&h=300&w=600&ref=/thailand/tourist-arrivals"
+
+# Function to load image from URL
+def load_image(image_url):
+    response = requests.get(image_url)
+    image = Image.open(BytesIO(response.content))
+    return image
 
 # Function to display user feedback
 def display_user_feedback():
