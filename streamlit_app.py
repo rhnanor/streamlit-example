@@ -1,6 +1,25 @@
 import streamlit as st
 from textblob import TextBlob
 
+# Function to display user feedback
+def display_user_feedback():
+    st.write("## User Feedback")
+    st.write("Have something to say about the Tourist Arrivals Dashboard? Share your feedback with us!")
+    st.write("Enter your feedback in the text box below and click 'Submit'.")
+
+    feedback = st.text_input("Enter your feedback on the helpfulness of this website:")
+    if st.button("Submit"):
+        if feedback:
+            blob = TextBlob(feedback)
+            sentiment_score = blob.sentiment.polarity
+            sentiment_label = "Positive" if sentiment_score > 0 else "Negative" if sentiment_score < 0 else "Neutral"
+
+            st.markdown(f"*Feedback:* {feedback}")
+            st.markdown(f"*Sentiment Score:* {sentiment_score:.2f}")
+            st.markdown(f"*Sentiment:* {sentiment_label}")
+        else:
+            st.warning("Please enter your feedback before submitting.")
+
 def display_chart(country_name, iframe_code):
     st.title(f"Tourist Arrivals in {country_name}")
     st.write(f"Welcome to the Tourist Arrivals Dashboard for {country_name}. This dashboard provides an interactive visualization of the tourist arrivals data for {country_name}. Explore the chart below to understand the trends and patterns in tourist arrivals over time. The data is sourced from tradingeconomics.com.")
@@ -41,25 +60,7 @@ elif selected_tab == "Thailand":
 
 elif selected_tab == "User Feedback":
         display_user_feedback()
-# Function to display user feedback
-def display_user_feedback():
-    st.write("## User Feedback")
-    st.write("Have something to say about the Tourist Arrivals Dashboard? Share your feedback with us!")
-    st.write("Enter your feedback in the text box below and click 'Submit'.")
-
-    feedback = st.text_input("Enter your feedback on the helpfulness of this website:")
-    if st.button("Submit"):
-        if feedback:
-            blob = TextBlob(feedback)
-            sentiment_score = blob.sentiment.polarity
-            sentiment_label = "Positive" if sentiment_score > 0 else "Negative" if sentiment_score < 0 else "Neutral"
-
-            st.markdown(f"*Feedback:* {feedback}")
-            st.markdown(f"*Sentiment Score:* {sentiment_score:.2f}")
-            st.markdown(f"*Sentiment:* {sentiment_label}")
-        else:
-            st.warning("Please enter your feedback before submitting.")
-
+    
 
 if __name__ == "__main__":
     main()
