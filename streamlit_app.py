@@ -1,5 +1,5 @@
 import streamlit as st
-import streamlit as st
+from textblob import TextBlob
 
 def display_chart(country_name, iframe_code):
     st.title(f"Tourist Arrivals in {country_name}")
@@ -38,5 +38,24 @@ elif selected_tab == "Thailand":
     <iframe src='https://tradingeconomics.com/embed/?s=thailandtouarr&v=202305260335v20230410&h=300&w=600&ref=/thailand/tourist-arrivals' height='300' width='600' frameborder='0' scrolling='no'></iframe>
     """
     display_chart("Thailand", thailand_iframe)
+elif selected_tab == "User Feedback":
+    st.write("## User Feedback")
+    st.write("Have something to say about the Tourist Arrivals Dashboard? Share your feedback with us!")
+    st.write("Enter your feedback in the sidebar on the left and click 'Submit'.")
+        
+    # Section: User Feedback and Sentiment Analysis
+    st.header("User Feedback and Sentiment Analysis")
+    feedback = st.text_input("Enter your feedback on the helpfulness of this website:")
+
+    if feedback:
+        blob = TextBlob(feedback)
+        sentiment_score = blob.sentiment.polarity
+        sentiment_label = "Positive" if sentiment_score > 0 else "Negative" if sentiment_score < 0 else "Neutral"
+
+        st.markdown(f"*Feedback:* {feedback}")
+        st.markdown(f"*Sentiment Score:* {sentiment_score:.2f}")
+        st.markdown(f"*Sentiment:* {sentiment_label}")
+    else:
+        st.info("Enter your feedback in the text box above to see the sentiment analysis results.")
 
 
